@@ -27,6 +27,7 @@ public class ListVideosControllerTest
            new() {
                Id = 1,
                Descritivo = "video Teste",
+               Nome = "Teste",
                CaminhoVideo = "c:/teste",
                CaminhoVideoZip = "c:/teste",
                StatusVideo = StatusVideo.Processado,
@@ -36,6 +37,7 @@ public class ListVideosControllerTest
            new() {
                Id = 2,
                Descritivo = "video Teste",
+               Nome = "Teste",
                CaminhoVideo = "c:/teste",
                CaminhoVideoZip = "c:/teste",
                StatusVideo = StatusVideo.Processado,

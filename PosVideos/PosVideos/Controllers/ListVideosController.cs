@@ -31,6 +31,7 @@ namespace PosVideos.Controllers
             else {
                 videos = await _serviceVideoRepository.ListVideos(v => v.Id == videoQuery.Id 
                                                             || v.Descritivo == videoQuery.Descritivo
+                                                            || v.Nome == videoQuery.Nome
                                                             || v.StatusVideo == videoQuery.StatusVideo
                                                             || v.DataCriacao == videoQuery.DataCriacao);
             }
