@@ -157,7 +157,13 @@ Explicamos a seguir o código desenvolvido para a solução **PosVideos.sln**.
 
 Na raiz deste repositório temos o **docker-compose.yml**. Ele foi desenvolvido para criar um container para o servidor do RabbitMQ e um container para o BD da aplicação.
 
-# 3. Entregáveis
+# 3. Aplicação em Execução
+
+Documentação da API:
+
+![Aplicação em execução - Swagger](./res/Swagger.png)
+
+# 4. Entregáveis
 
 Relacionamos aqui os entregáveis do hackathon:
 
@@ -168,6 +174,3 @@ Relacionamos aqui os entregáveis do hackathon:
 3. O script de criação do BD, feito via migrations, presente neste repositório: 20240316163509_IniciandoMigrationBanco.cs;
 
 4. Link deste rep: https://github.com/nathalialasagna/PosVideos
-
-
-
