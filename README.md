@@ -167,6 +167,12 @@ RabbitMQ em funcionamento:
 
 ![Tela do RabbitMQ](./res/RabbitMQ.png)
 
+Telas desenvolvidas:
+
+![PosVideos - Tela 1](./res/Tela1.png)
+
+![PosVideos - Tela 2](./res/Tela2.png)
+
 # 4. Entregáveis
 
 Relacionamos aqui os entregáveis do hackathon:
