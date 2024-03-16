@@ -1,25 +1,16 @@
-
-
-
-
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using PosVideos.Models;
-using PosVideosCore.Model;
 using ProcessarVideo;
 using ProcessarVideo.Events;
 using ProcessarVideo.Service;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         var configuration = hostContext.Configuration;
         services.AddHostedService<Worker>();
 
-var host = builder.Build();
-host.Run();
         services.AddDbContext<ProcessarVideoContext>(opt => opt
                                           .UseSqlServer(configuration.GetConnectionString("SQLConnection"))
                                           .EnableSensitiveDataLogging());
