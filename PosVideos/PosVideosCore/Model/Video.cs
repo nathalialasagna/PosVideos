@@ -22,6 +22,7 @@ namespace PosVideosCore.Model
     {
         public int Id { get; set; }
         public string Descritivo { get; set; }
+        public string Nome { get; set; }
         public string CaminhoVideo { get; set; }
         public string? CaminhoVideoZip { get; set; }
         public StatusVideo StatusVideo { get; set; }
