@@ -163,6 +163,10 @@ Documentação da API:
 
 ![Aplicação em execução - Swagger](./res/Swagger.png)
 
+RabbitMQ em funcionamento:
+
+![Tela do RabbitMQ](./res/RabbitMQ.png)
+
 # 4. Entregáveis
 
 Relacionamos aqui os entregáveis do hackathon:
