@@ -1,16 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +16,13 @@ namespace PosVideosCore.Model
         public StatusVideo StatusVideo { get; set; }
         public DateTime DataCriacao { get; set; } = DateTime.Now;
         public DateTime? DataFimProcessamento { get; set; }
+
+        public static Video Map(VideoProcessQuery requestDto) =>
+        new Video()
+        {
+            Nome = requestDto.NomeVideo,
+            CaminhoVideo = requestDto.CaminhoVideo
+        };
     }
+
 }

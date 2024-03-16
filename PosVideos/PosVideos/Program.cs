@@ -1,7 +1,14 @@
-
-
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using PosBooksCore.Parameters;
 using PosVideos.Models;
+using PosVideos.Service;
+using PosVideosCore.Interfaces.Parameters;
+
+const string MASSTRANSIT = "MassTransit";
+const string SERVIDOR = "Servidor";
+const string USUARIO = "Usuario";
+const string SENHA = "Senha";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +19,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 
 builder.Services.AddDbContext<PVContext>(opt => opt
                                   .UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection"))
                                   .EnableSensitiveDataLogging());
 
 builder.Services.AddScoped<PVContext>();
+builder.Services.AddScoped<IServiceVideoRepository, ServiceVideoRepository>();
+builder.Services.AddSingleton<IParametros, Parametros>();
+
+ConfigureMassTransit(builder);
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,8 +45,26 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var scoped = app.Services.CreateScope();
-var dbContext = scoped.ServiceProvider.GetRequiredService<PVContext>();
-dbContext.Database.Migrate();
-
 app.Run();
+
+void ConfigureMassTransit(WebApplicationBuilder webApplicationBuilder)
+{
+    var config = webApplicationBuilder.Configuration;
+    var servidor = config.GetSection(MASSTRANSIT)[SERVIDOR] ?? string.Empty;
+    var user = config.GetSection(MASSTRANSIT)[USUARIO] ?? string.Empty;
+    var pass = config.GetSection(MASSTRANSIT)[SENHA] ?? string.Empty;
+
+    webApplicationBuilder.Services.AddMassTransit(x =>
+    {
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            cfg.Host(servidor, "/", h =>
+            {
+                h.Username(user);
+                h.Password(pass);
+            });
+
+            cfg.ConfigureEndpoints(context);
+        });
+    });
+}
