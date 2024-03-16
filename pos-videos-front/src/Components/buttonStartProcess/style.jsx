@@ -7,7 +7,7 @@ export const StartProcess_Button = styled.button`
     direction: row;
     align-items: center;
     justify-content: space-between;
-    min-width: 20vw;
+    min-width: 10vw;
     height: ${props => props.height};
     border: 0px;
     margin: 0;
@@ -15,12 +15,18 @@ export const StartProcess_Button = styled.button`
     border-radius: 5px;
     overflow: hidden;
     background-color: ${Colors.decorative.yellowLight};
-    box-shadow: 3px 3px 2px 0px #E2E2E2;
+    box-shadow: 3px 3px 2px 0px #2b2b2b53;
+    cursor: pointer;
+    transition: .3s ease;
+
+    &:hover{
+        background-color: ${Colors.decorative.yellowDark};
+    }
 `
 
 export const StartProcess_Icon = styled.span`
     background-color: ${Colors.decorative.yellowDark};
-    min-width: 20vw;
+    min-width: 10vw;
     display: flex;
     justify-content: center;
     align-content: center;

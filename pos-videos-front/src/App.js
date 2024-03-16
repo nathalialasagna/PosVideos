@@ -1,21 +1,11 @@
-import { Colors } from "./Colors";
-import ButtonListProcess from "./Components/buttonListProcess/ButtonListProcess";
-import ButtonStartProcess from "./Components/buttonStartProcess/ButtonStartProcess";
-import SearchBar from "./Components/searchbar/SearchBar";
-import Logo from "./Icons/logo";
+import Home from "./Views/Home/Home";
+import ListVideos from "./Views/ListVideos/ListVideos";
 
-
-function App() {
+export default function App() {
   return (
-    <div className="App" style={{ backgroundColor: Colors.backgroundColor }}>
-      <Logo width={"30vw"}/>
-      <SearchBar/>
-      <br/>
-      <ButtonStartProcess height={"10vh"}/>
-      <br />
-      <ButtonListProcess height={"6vh"}/>
+    <div className="App">
+      <Home/>
+      <ListVideos/>
     </div>
   );
 }
-
-export default App;
