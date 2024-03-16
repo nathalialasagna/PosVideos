@@ -22,19 +22,54 @@ namespace PosVideos.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<VideoDto>>> ListVideos([FromQuery] VideoQuery? videoQuery)
         {
-            IEnumerable<Video?> videos;
+            //IEnumerable<Video?> videos;
 
-            if (videoQuery == null)
-            {
-                videos = await _serviceVideoRepository.ListVideos();
-            }
-            else {
-                videos = await _serviceVideoRepository.ListVideos(v => v.Id == videoQuery.Id 
-                                                            || v.Descritivo == videoQuery.Descritivo
-                                                            || v.Nome == videoQuery.Nome
-                                                            || v.StatusVideo == videoQuery.StatusVideo
-                                                            || v.DataCriacao == videoQuery.DataCriacao);
-            }
+                    var videos = new List<Video>
+                    {
+                   new() {
+                       Id = 1,
+                       Descritivo = "video Teste",
+                       Nome = "Teste",
+                       CaminhoVideo = "c:/teste",
+                       CaminhoVideoZip = "c:/teste",
+                       StatusVideo = StatusVideo.Processado,
+                       DataCriacao = DateTime.Now,
+                       DataFimProcessamento = DateTime.Now
+                   },
+                   new() {
+                       Id = 2,
+                       Descritivo = "video Teste",
+                       Nome = "Teste",
+                       CaminhoVideo = "c:/teste",
+                       CaminhoVideoZip = "c:/teste",
+                       StatusVideo = StatusVideo.Processado,
+                       DataCriacao = DateTime.Now,
+                       DataFimProcessamento = DateTime.Now
+
+                   },
+                    new() {
+                       Id = 3,
+                       Descritivo = "video Teste",
+                       Nome = "Teste",
+                       CaminhoVideo = "c:/teste",
+                       CaminhoVideoZip = "c:/teste",
+                       StatusVideo = StatusVideo.Processado,
+                       DataCriacao = DateTime.Now,
+                       DataFimProcessamento = DateTime.Now
+
+                    },
+                    };
+            //if (videoQuery == null)
+            //{
+            //    videos = await _serviceVideoRepository.ListVideos();
+            //}
+            //else {
+            //    videos = await _serviceVideoRepository.ListVideos(v => v.Id == videoQuery.Id 
+            //                                                || v.Descritivo == videoQuery.Descritivo
+            //                                                || v.Nome == videoQuery.Nome
+            //                                                || v.StatusVideo == videoQuery.StatusVideo
+            //                                                || v.DataCriacao == videoQuery.DataCriacao);
+            //}
 
             if (!videos.Any()) return NotFound();
 
