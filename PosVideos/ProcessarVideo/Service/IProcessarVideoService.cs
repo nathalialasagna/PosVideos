@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProcessarVideo.Service
 {
-    public interface IServiceProcessarVideoRepository
+    public interface IProcessarVideoService
     {
         public Task ProcessarVideo(Video video);
         public Task MudarStatusVideo(Video video, StatusVideo statusVideo);
+        Task<int> Inserir(Video video);
     }
 }
