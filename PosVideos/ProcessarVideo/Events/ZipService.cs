@@ -21,13 +21,13 @@ namespace ProcessarVideo.Events
         public async Task Consume(ConsumeContext<Video> context)
         {
             await ProcessarVideo(new Video() { CaminhoVideo = context.Message.CaminhoVideo, DataCriacao = context.Message.DataCriacao, 
-                Descritivo = context.Message.Descritivo, StatusVideo = context.Message.StatusVideo});
+                Descritivo = context.Message.Descritivo, StatusVideo = context.Message.StatusVideo, Nome = context.Message.Nome});
         }
 
         public async Task ProcessarVideo(Video video)
         {
             var entity = _serviceProcessarVideoRepository.Inserir(video);
-            _serviceProcessarVideoRepository.ProcessarVideo(video);
+            await _serviceProcessarVideoRepository.ProcessarVideo(video);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProcessarVideo.Service
-{ 
+{
     public class ProcessarVideoService : IProcessarVideoService
     {
         private readonly ProcessarVideoContext _context;
@@ -27,32 +27,29 @@ namespace ProcessarVideo.Service
 
         public async Task ProcessarVideo(Video video)
         {
-            try
+            var videoPath = @$"C:\TEMP\{video.Nome}";
+
+            var outputFolder = _configuration.GetSection("VideoProcessing")["PastaSaidaImagens"];
+
+            Directory.CreateDirectory(outputFolder);
+
+            var videoInfo = await FFProbe.AnalyseAsync(videoPath);
+            var duration = videoInfo.Duration;
+
+            var interval = TimeSpan.FromSeconds(20);
+
+            for (var currentTime = TimeSpan.Zero; currentTime < duration; currentTime += interval)
             {
-                MudarStatusVideo(video, StatusVideo.EmProcessamento);
-
-                Directory.CreateDirectory(video.CaminhoVideo);
-
-                var videoInfo = FFProbe.Analyse(video.Nome);
-                var duration = videoInfo.Duration;
-
-                var interval = TimeSpan.FromSeconds(20);
-
-                for (var currentTime = TimeSpan.Zero; currentTime < duration; currentTime += interval)
-                {
-                    var outputPath = Path.Combine(_configuration.GetSection("VideoProcessing")["PastaSaidaImagens"], $"frame_at_{currentTime.TotalSeconds}.jpg");
-                    FFMpeg.Snapshot(video.Nome, outputPath, new Size(1920, 1080), currentTime);
-                }
-                Guid idVideo = Guid.NewGuid();
-
-                ZipFile.CreateFromDirectory(_configuration.GetSection("VideoProcessing")["PastaSaidaImagensZip"], $"{video.Nome}_{idVideo.ToString()}.zip");
-
-                MudarStatusVideo(video, StatusVideo.Processado);
+                var outputPath = Path.Combine(outputFolder, $"frame_at_{currentTime.TotalSeconds}.jpg");
+                FFMpeg.Snapshot(videoPath, outputPath, new Size(1920, 1080), currentTime);
             }
-            catch(Exception ex)
-            {
-                MudarStatusVideo(video, StatusVideo.Erro);
-            }
+            //string destinationZipFilePath = _configuration.GetSection("VideoProcessing")["PastaSaidaImagensZip"];
+            Guid idVideo = Guid.NewGuid();
+
+            ZipFile.CreateFromDirectory(_configuration.GetSection("VideoProcessing")["PastaSaidaImagensZip"], $"{video.Nome}_{idVideo.ToString()}.zip");
+
+
+            //ZipFile.CreateFromDirectory(outputFolder, destinationZipFilePath);
 
         }
 
@@ -66,9 +63,12 @@ namespace ProcessarVideo.Service
         {
             var entity = await _context.Video.Where(x => x.Id == video.Id).FirstOrDefaultAsync();
 
-            entity.StatusVideo = statusVideo;
+            if (entity != null)
+            {
+                entity.StatusVideo = statusVideo;
 
-            _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
+            }
         }
     }
 }
