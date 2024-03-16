@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Colors } from "../../Colors";
 
 
-export const SearchBar_Div = styled.button`
+export const SearchBar_Div = styled.label`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -26,4 +26,7 @@ export const SearchBar_Div = styled.button`
 		background-color: ${Colors.decorative.blueDark};
 		color: ${Colors.base.fontColor};
 	}
+`
+export const SearchBar_Input = styled.input`
+	display:none
 `
